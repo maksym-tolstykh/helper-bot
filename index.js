@@ -88,18 +88,21 @@ function getAllRatings(ctx) {
         get(child(dbRef, `chats/${chatId}`)).then((snapshot) => {
             if (snapshot.exists()) {
                 const allUsers = snapshot.val();
+                const userRatintArr = [];
                 let text = "";
+                /* Додаємо данні в масив для подальшого сортування */
                 Object.keys(allUsers).forEach((item, index) => {
-                    text += `@${allUsers[item].userName} : ${allUsers[item].rating}\n`
-
+                    userRatintArr.push(allUsers[item]);
                 })
 
+                /*Сортування масиву з данними про рейтинг користувачів */
+                const sortedArr = userRatintArr.sort((a, b) => { return b.rating - a.rating });
+                sortedArr.forEach((item) => {
+                    text += `@${item.userName} : ${item.rating}\n`;
+                })
                 resolve(text)
-
-
             } else {
                 resolve("Рейтингу поки немає")
-                //console.log("No data available");
             }
         }).catch((error) => {
             console.error(error);
