@@ -28,12 +28,12 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 
 bot.hears("👍", async ctx => {
     if (ctx.message.reply_to_message) {
-        ctx.reply(await addRating(ctx))
+        ctx.reply(await userRating(ctx, "збільшив", 1))
     }
 })
 bot.hears("👎", async ctx => {
     if (ctx.message.reply_to_message) {
-        ctx.reply(await minusRating(ctx))
+        ctx.reply(await userRating(ctx, "зменшив", 2))
     }
 })
 
@@ -42,7 +42,9 @@ bot.command('rating', async (ctx) => ctx.reply(await getAllRatings(ctx)));
 
 bot.launch();
 
-function addRating(ctx) {
+
+/*Функція яка віднімає, або додає рейтинг */
+function userRating(ctx, str, num) {
     return new Promise((resolve, reject) => {
         const chatId = ctx.chat.id;
 
@@ -55,49 +57,18 @@ function addRating(ctx) {
         get(child(dbRef, `chats/${chatId}/${userToUserID}`)).then((snapshot) => {
             if (snapshot.exists()) {
                 const currentRating = snapshot.val();
-                const newRating = currentRating.rating + 1;
+                const newRating = currentRating.rating + num;
                 update(ref(database, 'chats/' + chatId + "/" + userToUserID), { rating: newRating });
-                resolve(`Користувач @${userFromUserName} збільшив репутацію користувача @${userToUserName} на 1`);
-
-            } else {
-                set(ref(database, 'chats/' + chatId + "/" + userToUserID), { rating: 1, userName: userToUserName });
-                resolve(`Користувач @${userFromUserName} збільшив репутацію користувача @${userToUserName} на 1`);
-                //console.log("No data available");
-            }
-        }).catch((error) => {
-            console.error(error);
-        });
-
-
-    })
-
-
-}
-
-const minusRating = (ctx) => {
-    return new Promise((resolve, reject) => {
-        const chatId = ctx.chat.id;
-
-
-        const userFromUserName = ctx.message.from.username;
-        const userToUserName = ctx.message.reply_to_message.from.username;
-        const userToUserID = ctx.message.reply_to_message.from.id;
-
-
-        get(child(dbRef, `chats/${chatId}/${userToUserID}`)).then((snapshot) => {
-
-            if (snapshot.exists()) {
-                const currentRating = snapshot.val();
-                const newRating = currentRating.rating - 2;
-                update(ref(database, 'chats/' + chatId + "/" + userToUserID), { rating: newRating });
-                resolve(`Користувач @${userFromUserName} зменшив репутацію користувача @${userToUserName} на 2`);
+                resolve(`Користувач @${userFromUserName} ${str} репутацію користувача @${userToUserName} на ${num}`);
 
             } else {
                 const currentRating = 0;
                 const newRating = currentRating - 2;
-                set(ref(database, 'chats/' + chatId + "/" + userToUserID), { rating: newRating, userName: userToUserName });
-                resolve(`Користувач @${userFromUserName} зменшив репутацію користувача @${userToUserName} на 2`);
-                //console.log("No data available");
+                set(ref(database, 'chats/' + chatId + "/" + userToUserID), {
+                    rating: num < 0 ? newRating : 1,
+                    userName: userToUserName
+                });
+                resolve(`Користувач @${userFromUserName} ${str} репутацію користувача @${userToUserName} на ${num}`);
             }
         }).catch((error) => {
             console.error(error);
@@ -105,8 +76,11 @@ const minusRating = (ctx) => {
 
 
     })
+
+
 }
 
+/*Функція яка показує весь рейтинг */
 function getAllRatings(ctx) {
     return new Promise((resolve, reject) => {
         const chatId = ctx.chat.id;
@@ -135,4 +109,3 @@ function getAllRatings(ctx) {
 
 
 }
-
