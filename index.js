@@ -33,7 +33,7 @@ bot.hears("👍", async ctx => {
 })
 bot.hears("👎", async ctx => {
     if (ctx.message.reply_to_message) {
-        ctx.reply(await userRating(ctx, "зменшив", 2))
+        ctx.reply(await userRating(ctx, "зменшив", -2))
     }
 })
 
