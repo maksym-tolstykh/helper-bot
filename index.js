@@ -121,10 +121,11 @@ function getAllRatings(ctx) {
 
 const scheduleRule = new schedule.RecurrenceRule();
 scheduleRule.date = 1;
+scheduleRule.hour = 1;
+scheduleRule.minute = 1;
 
 const job = schedule.scheduleJob(scheduleRule, function () {
     creatingRatingForMonth();
-    console.log('The answer to life, the universe, and everything!');
 });
 
 function creatingRatingForMonth() {
