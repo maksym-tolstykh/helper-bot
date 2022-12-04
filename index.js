@@ -5,6 +5,7 @@ import schedule from 'node-schedule';
 
 import { initializeApp } from "firebase/app";
 import { getDatabase, set, ref, child, get, update } from "firebase/database";
+import axios from "axios";
 
 
 
@@ -173,3 +174,41 @@ function creatingRatingForMonth() {
 
 
 }
+
+/*Weather */
+const scheduleWeatherRule = new schedule.RecurrenceRule();
+
+scheduleWeatherRule.hour = 21;
+scheduleWeatherRule.minute = 17;
+
+
+const weatherWorker = schedule.scheduleJob(scheduleWeatherRule, function () {
+    GetWeather();
+});
+
+async function GetWeather() {
+    const chatId = process.env.CHAT_ID;
+    const response = await axios.get(process.env.API_WEATHER);
+    const data = response.data;
+    const currentDay = new Date(data.current.dt * 1000).toLocaleString();
+    const currentWeatherDesc = data.current.weather[0].description;
+    const currentTemp = data.current.temp;
+    const currentFeelsLike = data.current.feels_like;
+    const currentSunset = new Date(data.current.sunset * 1000).toLocaleTimeString();
+
+    const text = `🌇Світанок у нашому місті🌇\t
+\t
+🌎Погода за ${currentDay}🌎 \t
+⚡️На вулиці буде ${currentWeatherDesc}⚡️\t
+🌡Температура: ${currentTemp}°C🌡\t
+🌡По відчуттям як ${currentFeelsLike}°C🌡\t
+☀️Захід сонця о ${currentSunset}☀️\t
+
+🇺🇦Слава Україні🇺🇦`
+
+    bot.telegram.sendMessage(chatId, text);
+}
+
+
+
+
