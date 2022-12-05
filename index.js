@@ -178,8 +178,8 @@ function creatingRatingForMonth() {
 /*Weather */
 const scheduleWeatherRule = new schedule.RecurrenceRule();
 
-scheduleWeatherRule.hour = 9;
-scheduleWeatherRule.minute = 30;
+scheduleWeatherRule.hour = 8;
+scheduleWeatherRule.minute = 10;
 
 
 const weatherWorker = schedule.scheduleJob(scheduleWeatherRule, function () {
@@ -188,7 +188,7 @@ const weatherWorker = schedule.scheduleJob(scheduleWeatherRule, function () {
 
 async function GetWeather() {
     const chatId = process.env.CHAT_ID;
-    const response = await axios.get(process.env.API_WEATHER);
+    const response = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=50.7723&lon=29.2383&exclude=minutely,hourly&appid=${process.env.API_WEATHER}&units=metric&lang=ua`);
     const data = response.data;
     const currentDay = new Date(data.current.dt * 1000).toLocaleString();
     const currentWeatherDesc = data.current.weather[0].description;
