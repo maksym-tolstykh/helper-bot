@@ -179,7 +179,7 @@ function creatingRatingForMonth() {
 const scheduleWeatherRule = new schedule.RecurrenceRule();
 
 scheduleWeatherRule.hour = 9;
-scheduleWeatherRule.minute = 0;
+scheduleWeatherRule.minute = 30;
 
 
 const weatherWorker = schedule.scheduleJob(scheduleWeatherRule, function () {
