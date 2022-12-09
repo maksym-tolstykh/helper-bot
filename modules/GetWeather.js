@@ -11,13 +11,13 @@ export async function GetWeatherShedule() {
     const currentFeelsLike = data.current.feels_like;
     const currentSunset = new Date(data.current.sunset * 1000).toLocaleTimeString();
 
-    const text = `🌇Світанок у нашому місті🌇\t
+    const text = `🌇Світанок у нашому місті🌇
 \t
-🌎Погода за ${currentDay}🌎 \t
-⚡️На вулиці буде ${currentWeatherDesc}⚡️\t
-🌡Температура: ${currentTemp}°C🌡\t
-🌡По відчуттям як ${currentFeelsLike}°C🌡\t
-☀️Захід сонця о ${currentSunset}☀️\t
+🌎Погода за ${currentDay}🌎 
+⚡️На вулиці буде ${currentWeatherDesc}⚡️
+🌡Температура: ${currentTemp}°C🌡
+🌡По відчуттям як ${currentFeelsLike}°C🌡
+☀️Захід сонця о ${currentSunset}☀️
 
 🇺🇦Слава Україні🇺🇦`
 
@@ -27,7 +27,6 @@ export async function GetWeatherShedule() {
 /*Function for command */
 export function GetWeather() {
     return new Promise(async (resolve, reject) => {
-        const chatId = process.env.CHAT_ID;
         const response = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=50.7723&lon=29.2383&exclude=minutely,hourly&appid=${process.env.API_WEATHER}&units=metric&lang=ua`);
         const data = response.data;
         const currentDay = new Date(data.current.dt * 1000).toLocaleString("uk-UA");
@@ -36,13 +35,13 @@ export function GetWeather() {
         const currentFeelsLike = data.current.feels_like;
         const currentSunset = new Date(data.current.sunset * 1000).toLocaleTimeString("uk-UA");
 
-        const text = `🌇Світанок у нашому місті🌇\t
+        const text = `🌇Погода у нашому місті🌇
 \t
-🌎Погода за ${currentDay}🌎 \t
-⚡️На вулиці буде ${currentWeatherDesc}⚡️\t
-🌡Температура: ${currentTemp}°C🌡\t
-🌡По відчуттям як ${currentFeelsLike}°C🌡\t
-☀️Захід сонця о ${currentSunset}☀️\t
+🌎Погода за ${currentDay}🌎 
+⚡️На вулиці буде ${currentWeatherDesc}⚡️
+🌡Температура: ${currentTemp}°C🌡
+🌡По відчуттям як ${currentFeelsLike}°C🌡
+☀️Захід сонця о ${currentSunset}☀️
 
 🇺🇦Слава Україні🇺🇦`
 
