@@ -2,7 +2,7 @@ import axios from "axios";
 
 /*Function for shedule */
 export async function GetWeatherShedule() {
-    const chatId = ctx.chat.id;
+    const chatId = process.env.CHAT_ID;
     const response = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=50.7723&lon=29.2383&exclude=minutely,hourly&appid=${process.env.API_WEATHER}&units=metric&lang=ua`);
     const data = response.data;
     const currentDay = new Date(data.current.dt * 1000).toLocaleString();
