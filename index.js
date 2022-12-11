@@ -68,9 +68,9 @@ const scheduleEpicWorker = schedule.scheduleJob(scheduleWeatherRule, function ()
 
 const scheduleEpicFreeWeekRule = new schedule.RecurrenceRule();
 
-scheduleWeatherRule.dayOfMonth = new schedule.Range(15, 22); //change every year
-scheduleWeatherRule.hour = 18;
-scheduleWeatherRule.minute = 2;
+scheduleEpicFreeWeekRule.dayOfMonth = new schedule.Range(15, 22); //change every year
+scheduleEpicFreeWeekRule.hour = 18;
+scheduleEpicFreeWeekRule.minute = 2;
 
 const scheduleEpicFreeWeekWorker = schedule.scheduleJob(scheduleEpicFreeWeekRule, function () {
     GetEpicFreeGamesShedule(bot);
