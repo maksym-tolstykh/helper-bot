@@ -64,6 +64,18 @@ const scheduleEpicWorker = schedule.scheduleJob(scheduleWeatherRule, function ()
     GetEpicFreeGamesShedule(bot);
 });
 
+/*EpicGames 15-22 Dec */
+
+const scheduleEpicFreeWeekRule = new schedule.RecurrenceRule();
+
+scheduleWeatherRule.dayOfMonth = new schedule.Range(15, 22); //change every year
+scheduleWeatherRule.hour = 18;
+scheduleWeatherRule.minute = 2;
+
+const scheduleEpicFreeWeekWorker = schedule.scheduleJob(scheduleEpicFreeWeekRule, function () {
+    GetEpicFreeGamesShedule(bot);
+});
+
 
 
 
