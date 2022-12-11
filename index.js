@@ -6,7 +6,7 @@ import schedule from 'node-schedule';
 
 /*My modules */
 import { GetWeatherShedule, GetWeather } from "./modules/GetWeather.js";
-import { GetEpicFreeGames } from './modules/GetFreeGamesFromEpic.js';
+import { GetEpicFreeGames, GetEpicFreeGamesShedule } from './modules/GetFreeGamesFromEpic.js';
 import { userRating, getAllRatings, creatingRatingForMonth } from "./modules/UserRating.js";
 
 
@@ -61,7 +61,7 @@ scheduleWeatherRule.hour = 18;
 scheduleWeatherRule.minute = 30;
 
 const scheduleEpicWorker = schedule.scheduleJob(scheduleWeatherRule, function () {
-    GetWeatherShedule();
+    GetEpicFreeGamesShedule(bot);
 });
 
 
