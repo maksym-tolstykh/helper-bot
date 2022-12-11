@@ -56,11 +56,11 @@ const weatherWorker = schedule.scheduleJob(scheduleWeatherRule, function () {
 /*EpicGame */
 const scheduleEpicRule = new schedule.RecurrenceRule();
 
-scheduleWeatherRule.dayOfWeek = 4;
-scheduleWeatherRule.hour = 18;
-scheduleWeatherRule.minute = 30;
+scheduleEpicRule.dayOfWeek = 4;
+scheduleEpicRule.hour = 18;
+scheduleEpicRule.minute = 30;
 
-const scheduleEpicWorker = schedule.scheduleJob(scheduleWeatherRule, function () {
+const scheduleEpicWorker = schedule.scheduleJob(scheduleEpicRule, function () {
     GetEpicFreeGamesShedule(bot);
 });
 
