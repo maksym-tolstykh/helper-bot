@@ -1,7 +1,7 @@
 import axios from "axios";
 
 /*Function for shedule */
-export async function GetWeatherShedule() {
+export async function GetWeatherShedule(bot) {
     const chatId = process.env.CHAT_ID;
     const response = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=50.7723&lon=29.2383&exclude=minutely,hourly&appid=${process.env.API_WEATHER}&units=metric&lang=ua`);
     const data = response.data;

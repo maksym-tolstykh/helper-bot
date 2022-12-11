@@ -45,12 +45,12 @@ const job = schedule.scheduleJob(scheduleRule, function () {
 /*Weather */
 const scheduleWeatherRule = new schedule.RecurrenceRule();
 
-scheduleWeatherRule.hour = 7;
-scheduleWeatherRule.minute = 10;
+scheduleWeatherRule.hour = 10;
+scheduleWeatherRule.minute = 41;
 
 
 const weatherWorker = schedule.scheduleJob(scheduleWeatherRule, function () {
-    GetWeatherShedule();
+    GetWeatherShedule(bot);
 });
 
 /*EpicGame */
