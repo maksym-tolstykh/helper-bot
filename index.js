@@ -68,7 +68,7 @@ const scheduleEpicWorker = schedule.scheduleJob(scheduleEpicRule, function () {
 
 const scheduleEpicFreeWeekRule = new schedule.RecurrenceRule();
 
-scheduleEpicFreeWeekRule.dayOfMonth = new schedule.Range(15, 22); //change every year
+scheduleEpicFreeWeekRule.dayOfMonth = [15, 16, 17, 18, 19, 20, 21, 22]; //change every year
 scheduleEpicFreeWeekRule.hour = 18;
 scheduleEpicFreeWeekRule.minute = 2;
 
