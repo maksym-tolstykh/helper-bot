@@ -8,6 +8,8 @@ import schedule from 'node-schedule';
 import { GetWeatherShedule, GetWeather } from "./modules/GetWeather.js";
 import { GetEpicFreeGames, GetEpicFreeGamesShedule } from './modules/GetFreeGamesFromEpic.js';
 import { userRating, getAllRatings, creatingRatingForMonth } from "./modules/UserRating.js";
+import { schedules } from './modules/Schedules.js';
+
 
 
 
@@ -32,52 +34,14 @@ bot.command('epic', async (ctx) => ctx.reply(await GetEpicFreeGames()));
 
 bot.launch();
 
-const scheduleRule = new schedule.RecurrenceRule();
-scheduleRule.date = 1;
-scheduleRule.hour = 1;
-scheduleRule.minute = 1;
-
-const job = schedule.scheduleJob(scheduleRule, function () {
-    creatingRatingForMonth(bot);
-});
-
+/*Every month rating */
+schedules({ date: 1, hour: 15, minute: 52 }, creatingRatingForMonth, bot);
 
 /*Weather */
-const scheduleWeatherRule = new schedule.RecurrenceRule();
-
-scheduleWeatherRule.hour = 10;
-scheduleWeatherRule.minute = 41;
-
-
-const weatherWorker = schedule.scheduleJob(scheduleWeatherRule, function () {
-    GetWeatherShedule(bot);
-});
+schedules({ hour: 10, minute: 41 }, GetWeatherShedule, bot);
 
 /*EpicGame */
-const scheduleEpicRule = new schedule.RecurrenceRule();
-
-scheduleEpicRule.dayOfWeek = 4;
-scheduleEpicRule.hour = 18;
-scheduleEpicRule.minute = 30;
-
-const scheduleEpicWorker = schedule.scheduleJob(scheduleEpicRule, function () {
-    GetEpicFreeGamesShedule(bot);
-});
+schedules({ dayOfWeek: 4, hour: 18, minute: 30 }, GetEpicFreeGamesShedule, bot);
 
 /*EpicGames 15-22 Dec */
-
-const scheduleEpicFreeWeekRule = new schedule.RecurrenceRule();
-
-scheduleEpicFreeWeekRule.dayOfMonth = [15, 16, 17, 18, 19, 20, 21, 22]; //change every year
-scheduleEpicFreeWeekRule.hour = 18;
-scheduleEpicFreeWeekRule.minute = 2;
-
-const scheduleEpicFreeWeekWorker = schedule.scheduleJob(scheduleEpicFreeWeekRule, function () {
-    GetEpicFreeGamesShedule(bot);
-});
-
-
-
-
-
-
+schedules({ dayOfMonth: [15, 16, 17, 18, 19, 20, 21, 22], hour: 18, minute: 2 }, GetEpicFreeGamesShedule, bot);
