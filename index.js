@@ -16,7 +16,7 @@ import { schedules } from './modules/Schedules.js';
 dotenv.config();
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
-
+/*Hears */
 bot.hears("👍", async ctx => {
     if (ctx.message.reply_to_message) {
         ctx.reply(await userRating(ctx, "збільшив", 1))
@@ -27,7 +27,7 @@ bot.hears("👎", async ctx => {
         ctx.reply(await userRating(ctx, "зменшив", -2))
     }
 })
-
+/*Commands */
 bot.command('rating', async (ctx) => ctx.reply(await getAllRatings(ctx)));
 bot.command('weather', async (ctx) => ctx.reply(await GetWeather()));
 bot.command('epic', async (ctx) => ctx.reply(await GetEpicFreeGames()));
@@ -35,7 +35,7 @@ bot.command('epic', async (ctx) => ctx.reply(await GetEpicFreeGames()));
 bot.launch();
 
 /*Every month rating */
-schedules({ date: 1, hour: 15, minute: 52 }, creatingRatingForMonth, bot);
+schedules({ dayOfMonth: 1, hour: 15, minute: 52 }, creatingRatingForMonth, bot);
 
 /*Weather */
 schedules({ hour: 10, minute: 41 }, GetWeatherShedule, bot);
