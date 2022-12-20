@@ -8,7 +8,6 @@ export function schedules(obj, func, bot) {
     scheduleRule.date = obj.dayOfMonth || null;
     scheduleRule.hour = obj.hour || null;
     scheduleRule.minute = obj.minute || null;
-    console.log(scheduleRule);
     const job = schedule.scheduleJob(scheduleRule, function () {
         func(bot);
     });

@@ -5,7 +5,7 @@ import schedule from 'node-schedule';
 
 
 /*My modules */
-import { GetWeatherShedule, GetWeather } from "./modules/GetWeather.js";
+import { GetWeatherShedule, GetWeather, GetWeatherWeek } from "./modules/GetWeather.js";
 import { GetEpicFreeGames, GetEpicFreeGamesShedule } from './modules/GetFreeGamesFromEpic.js';
 import { userRating, getAllRatings, creatingRatingForMonth } from "./modules/UserRating.js";
 import { schedules } from './modules/Schedules.js';
@@ -30,6 +30,7 @@ bot.hears("👎", async ctx => {
 /*Commands */
 bot.command('rating', async (ctx) => ctx.reply(await getAllRatings(ctx)));
 bot.command('weather', async (ctx) => ctx.reply(await GetWeather()));
+bot.command('weatherweek', async (ctx) => ctx.reply(await GetWeatherWeek()));
 bot.command('epic', async (ctx) => ctx.reply(await GetEpicFreeGames()));
 
 bot.launch();
@@ -39,6 +40,7 @@ schedules({ dayOfMonth: 1, hour: 15, minute: 52 }, creatingRatingForMonth, bot);
 
 /*Weather */
 schedules({ hour: 10, minute: 41 }, GetWeatherShedule, bot);
+schedules({ hour: 21, minute: 1 }, GetWeatherShedule, bot);
 
 /*EpicGame */
 schedules({ dayOfWeek: 4, hour: 18, minute: 30 }, GetEpicFreeGamesShedule, bot);
