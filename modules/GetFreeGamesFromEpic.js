@@ -16,9 +16,10 @@ export function GetEpicFreeGames() {
                 const endDate = new Date(gamesList[i].promotions?.promotionalOffers[0]?.promotionalOffers[0].endDate);
 
                 if (!isNaN(startDate) && !isNaN(endDate)) {
-                    text += `Назва: ⭐${gamesList[i].title}⭐\n`;
-                    text += `Дата початку роздачі: ${new Date(startDate).toLocaleString("uk-UA")}\n`;
-                    text += `Дата закінчення роздачі: ${new Date(endDate).toLocaleString("uk-UA")}\n`;
+                    text += `🔥Назва: ⭐${gamesList[i].title}⭐\n`;
+                    text += `📙Опис: \n${gamesList[i].description}\n`;
+                    text += `⚠️Дата початку роздачі: ${new Date(startDate).toLocaleString("uk-UA")}\n`;
+                    text += `⚠️Дата закінчення роздачі: ${new Date(endDate).toLocaleString("uk-UA")}\n`;
                     text += `\n`
 
                 }
@@ -33,9 +34,9 @@ export function GetEpicFreeGames() {
                     console.log(startDate);
                     console.log(endDate);
 
-                    text += `Назва: 📦${gamesList[i].title}📦\n`;
-                    text += `Дата початку роздачі: ${new Date(startDate).toLocaleString("uk-UA")}\n`;
-                    text += `Дата закінчення роздачі: ${new Date(endDate).toLocaleString("uk-UA")}\n`;
+                    text += `🔥Назва: 📦${gamesList[i].title}📦\n`;
+                    text += `⚠️Дата початку роздачі: ${new Date(startDate).toLocaleString("uk-UA")}\n`;
+                    text += `⚠️Дата закінчення роздачі: ${new Date(endDate).toLocaleString("uk-UA")}\n`;
                     text += `\n`
 
                 }
@@ -64,9 +65,10 @@ export async function GetEpicFreeGamesShedule(bot) {
             const endDate = new Date(gamesList[i].promotions?.promotionalOffers[0]?.promotionalOffers[0].endDate);
 
             if (!isNaN(startDate) && !isNaN(endDate)) {
-                text += `Назва: ⭐${gamesList[i].title}⭐\n`;
-                text += `Дата початку роздачі: ${new Date(startDate).toLocaleString("uk-UA")}\n`;
-                text += `Дата закінчення роздачі: ${new Date(endDate).toLocaleString("uk-UA")}\n`;
+                text += `🔥Назва: ⭐${gamesList[i].title}⭐\n`;
+                text += `📙Опис: ${gamesList[i].description}\n`;
+                text += `⚠️Дата початку роздачі: ${new Date(startDate).toLocaleString("uk-UA")}\n`;
+                text += `⚠️Дата закінчення роздачі: ${new Date(endDate).toLocaleString("uk-UA")}\n`;
                 text += `\n`
 
             }
@@ -81,9 +83,9 @@ export async function GetEpicFreeGamesShedule(bot) {
                 console.log(startDate);
                 console.log(endDate);
 
-                text += `Назва: 📦${gamesList[i].title}📦\n`;
-                text += `Дата початку роздачі: ${new Date(startDate).toLocaleString("uk-UA")}\n`;
-                text += `Дата закінчення роздачі: ${new Date(endDate).toLocaleString("uk-UA")}\n`;
+                text += `🔥Назва: 📦${gamesList[i].title}📦\n`;
+                text += `⚠️Дата початку роздачі: ${new Date(startDate).toLocaleString("uk-UA")}\n`;
+                text += `⚠️Дата закінчення роздачі: ${new Date(endDate).toLocaleString("uk-UA")}\n`;
                 text += `\n`
 
             }

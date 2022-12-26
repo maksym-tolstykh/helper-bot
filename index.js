@@ -43,7 +43,5 @@ schedules({ hour: 10, minute: 41 }, GetWeatherShedule, bot);
 schedules({ hour: 21, minute: 1 }, GetWeatherShedule, bot);
 
 /*EpicGame */
-schedules({ dayOfWeek: 4, hour: 18, minute: 30 }, GetEpicFreeGamesShedule, bot);
-
-/*EpicGames 15-22 Dec */
-schedules({ dayOfMonth: [15, 16, 17, 18, 19, 20, 21, 22], hour: 18, minute: 2 }, GetEpicFreeGamesShedule, bot);
+//schedules({ dayOfWeek: 4, hour: 18, minute: 30 }, GetEpicFreeGamesShedule, bot);
+schedules({ hour: 18, minute: 2 }, GetEpicFreeGamesShedule, bot);
