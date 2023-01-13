@@ -1,37 +1,46 @@
 import { Telegraf } from "telegraf";
-import dotenv from 'dotenv'
-import schedule from 'node-schedule';
-
-
+import dotenv from "dotenv";
 
 /*My modules */
-import { GetWeatherShedule, GetWeather, GetWeatherWeek } from "./modules/GetWeather.js";
-import { GetEpicFreeGames, GetEpicFreeGamesShedule } from './modules/GetFreeGamesFromEpic.js';
-import { userRating, getAllRatings, creatingRatingForMonth } from "./modules/UserRating.js";
-import { schedules } from './modules/Schedules.js';
-
-
-
+import {
+  GetWeatherShedule,
+  GetWeather,
+  GetWeatherWeek,
+} from "./modules/GetWeather.js";
+import {
+  GetEpicFreeGames,
+  GetEpicFreeGamesShedule,
+} from "./modules/GetFreeGamesFromEpic.js";
+import {
+  userRating,
+  getAllRatings,
+  creatingRatingForMonth,
+} from "./modules/UserRating.js";
+import { schedules } from "./modules/Schedules.js";
 
 dotenv.config();
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
 /*Hears */
-bot.hears("👍", async ctx => {
-    if (ctx.message.reply_to_message) {
-        ctx.reply(await userRating(ctx, "збільшив", 1))
-    }
-})
-bot.hears("👎", async ctx => {
-    if (ctx.message.reply_to_message) {
-        ctx.reply(await userRating(ctx, "зменшив", -2))
-    }
-})
+bot.hears("👍", async (ctx) => {
+  if (ctx.message.reply_to_message) {
+    ctx.reply(await userRating(ctx, "збільшив", 1));
+  }
+});
+bot.hears("👎", async (ctx) => {
+  if (ctx.message.reply_to_message) {
+    ctx.reply(await userRating(ctx, "зменшив", -2));
+  }
+});
 /*Commands */
-bot.command('rating', async (ctx) => ctx.reply(await getAllRatings(ctx)));
-bot.command('weather', async (ctx) => ctx.reply(await GetWeather()));
-bot.command('weatherweek', async (ctx) => ctx.reply(await GetWeatherWeek()));
-bot.command('epic', async (ctx) => ctx.reply(await GetEpicFreeGames()));
+bot.command("rating", async (ctx) => ctx.reply(await getAllRatings(ctx)));
+bot.command("weather", async (ctx) => ctx.reply(await GetWeather()));
+bot.command("weatherweek", async (ctx) => ctx.reply(await GetWeatherWeek()));
+bot.command("epic", async (ctx) =>
+  ctx.reply(await GetEpicFreeGames(), {
+    parse_mode: "Markdown",
+  })
+);
 
 bot.launch();
 
