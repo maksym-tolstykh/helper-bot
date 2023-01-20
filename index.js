@@ -45,6 +45,7 @@ bot.use(stage.middleware());
 
 // /*Commands */
 // bot.command("rating", async (ctx) => ctx.reply(await getAllRatings(ctx)));
+bot.command("info", async (ctx) => ctx.reply(commandList));
 bot.command("weather", async (ctx) => ctx.reply(await GetWeather()));
 bot.command("weatherweek", async (ctx) => ctx.reply(await GetWeatherWeek()));
 bot.command("epic", async (ctx) =>
@@ -52,14 +53,14 @@ bot.command("epic", async (ctx) =>
     parse_mode: "Markdown",
   })
 );
-bot.command("be", async (ctx) => await ctx.scene.enter("BEER_SCENE_ID"));
-bot.command("t", async (ctx) => {
+bot.command("newdrink", async (ctx) => await ctx.scene.enter("BEER_SCENE_ID"));
+bot.command("drinks", async (ctx) => {
   ctx.reply(
     await getDringsData(0),
     Markup.inlineKeyboard([Markup.button.callback("next", "next_all 1")])
   );
 });
-bot.command("s", async (ctx) => {
+bot.command("sd", async (ctx) => {
   const searchText = ctx.message.text.replace("/s", "").trim();
   ctx.reply(
     await searchDrinks(searchText, 0),
@@ -101,3 +102,14 @@ schedules({ hour: 21, minute: 1 }, GetWeatherShedule, bot);
 /*EpicGame */
 schedules({ dayOfWeek: 4, hour: 18, minute: 30 }, GetEpicFreeGamesShedule, bot);
 //schedules({ hour: 18, minute: 2 }, GetEpicFreeGamesShedule, bot);
+
+const commandList = `
+Список команд
+/newdrink - додати напій
+/drinks - вивести список всіх напоїв.
+/epic - Виводить списко ігор, які роздаються в магазині.
+/sd - <параметр> - пошук за назвою, або категорією.
+/info - виводить всі команди.
+/weather - Виводить погоду.
+/weatherweek - Виводить погоду за тиждень.
+`;
