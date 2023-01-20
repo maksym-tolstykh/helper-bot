@@ -61,7 +61,7 @@ bot.command("drinks", async (ctx) => {
   );
 });
 bot.command("sd", async (ctx) => {
-  const searchText = ctx.message.text.replace("/s", "").trim();
+  const searchText = ctx.message.text.replace("/sd", "").trim();
   ctx.reply(
     await searchDrinks(searchText, 0),
     Markup.inlineKeyboard([
