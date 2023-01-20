@@ -140,7 +140,7 @@ export async function GetEpicFreeGamesShedule(bot) {
       }
     }
 
-    bot.telegram.sendMessage(chatId, text);
+    bot.telegram.sendMessage(chatId, text, { parse_mode: "Markdown" });
   } else {
     bot.telegram.sendMessage(chatId, "Сталася якась помилка!");
   }
