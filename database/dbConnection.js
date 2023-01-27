@@ -24,13 +24,14 @@ export function getDringsData(page) {
   return new Promise(async (resolve, reject) => {
     try {
       const [data] = await db.query(
-        `SELECT * FROM drinkList LIMIT ${page}, 1;`
+        `SELECT * FROM drinkList LIMIT ${page}, 10;`
       );
       let text = "";
       data.forEach((item) => {
         text += `Назва: ${item.title}\n`;
         text += `Опис: ${item.description}\n`;
-        text += `Рейтинг: ${item.rating}\n`;
+        text += `Рейтинг: ${item.rating}\n\n`;
+        
       });
 
       resolve(text);
