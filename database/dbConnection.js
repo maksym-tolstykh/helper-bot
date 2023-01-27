@@ -24,7 +24,7 @@ export function getDringsData(page) {
   return new Promise(async (resolve, reject) => {
     try {
       const [data] = await db.query(
-        `SELECT * FROM drinkList LIMIT ${page}, 10;`
+        `SELECT * FROM drinkList LIMIT ${page*10}, 10;`
       );
       let text = "";
       data.forEach((item) => {
