@@ -3,6 +3,7 @@ import {
   getDringsData,
   saveDrinkData,
   searchDrinks,
+  updateDrinkDescription,
 } from "../database/dbConnection.js";
 
 export const startScene = new Scenes.WizardScene(
@@ -97,3 +98,25 @@ export async function getDrinksListForParam(ctx, bot) {
     ])
   );
 }
+
+export function addDescription(ctx) {
+  return new Promise(async (resolve, reject) => {
+    const searchText = ctx.message.text.replace("/ud", "").trim();
+    let parts = searchText.split(' ');
+    const username = ctx.from.username;
+
+
+
+    try {
+      let id = parts[0];
+      let text = parts.slice(1).join(' ');
+      const newDesc = `\n@${username} ${text}`;
+
+      await updateDrinkDescription(newDesc, id);
+      resolve("Ваш відгук додано!");
+    } catch (error) {
+      console.log(error);
+      resolve("Щось пішло не так!");
+    }
+  })
+};

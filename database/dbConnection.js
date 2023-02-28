@@ -28,6 +28,7 @@ export function getDringsData(page) {
       );
       let text = "";
       data.forEach((item) => {
+        text += `ID: ${item.id}\n`;
         text += `Назва: ${item.title}\n`;
         text += `Опис: ${item.description}\n`;
         text += `Рейтинг: ${item.rating}\n\n`;
@@ -57,4 +58,8 @@ export function searchDrinks(searchText, page) {
       resolve(text);
     } catch (error) {}
   });
+}
+
+export function updateDrinkDescription(desc, id) {
+    return db.query("update drinkList set `description` = concat( `description` , ?) where id = ?",[desc,id]);
 }

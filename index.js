@@ -12,13 +12,9 @@ import {
   GetEpicFreeGames,
   GetEpicFreeGamesShedule,
 } from "./modules/GetFreeGamesFromEpic.js";
-import {
-  userRating,
-  getAllRatings,
-  creatingRatingForMonth,
-} from "./modules/UserRating.js";
 import { schedules } from "./modules/Schedules.js";
 import {
+  addDescription,
   getDrinksList,
   getDrinksListForParam,
   startScene,
@@ -74,6 +70,8 @@ bot.command("sd", async (ctx) => {
   );
 });
 
+bot.command("ud", async (ctx)=>{ctx.reply(await addDescription(ctx))})
+
 /*Events */
 bot.on("callback_query", (ctx) => {
   const callbackData = ctx.callbackQuery.data;
@@ -93,7 +91,7 @@ bot.on("callback_query", (ctx) => {
 
 bot.launch();
 /*Every month rating */
-schedules({ dayOfMonth: 1, hour: 15, minute: 52 }, creatingRatingForMonth, bot);
+//schedules({ dayOfMonth: 1, hour: 15, minute: 52 }, creatingRatingForMonth, bot);
 
 /*Weather */
 schedules({ hour: 10, minute: 41 }, GetWeatherShedule, bot);
