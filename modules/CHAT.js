@@ -14,7 +14,7 @@ export function ChatGPT (ctx){
               const response = await openai.createCompletion({
                 model: "text-davinci-003",
                 prompt: prompt,
-                temperature: 0.7,
+                temperature: 0,
                 max_tokens: 2048,
               });
             resolve(response.data.choices[0].text || "Дані чомусь прийшои пусті!");
