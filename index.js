@@ -20,6 +20,7 @@ import {
   startScene,
 } from "./modules/DrinkRating.js";
 import { getDringsData, searchDrinks } from "./database/dbConnection.js";
+import { ChatGPT } from './modules/CHAT.js';
 
 dotenv.config();
 const bot = new Telegraf(process.env.BOT_TOKEN);
@@ -70,7 +71,10 @@ bot.command("sd", async (ctx) => {
   );
 });
 
-bot.command("ud", async (ctx)=>{ctx.reply(await addDescription(ctx))})
+bot.command("ud", async (ctx)=>{ctx.reply(await addDescription(ctx))});
+bot.command("gpt", async(ctx)=>{ctx.reply(await ChatGPT(ctx), {
+  parse_mode: "Markdown",
+})});
 
 /*Events */
 bot.on("callback_query", (ctx) => {
