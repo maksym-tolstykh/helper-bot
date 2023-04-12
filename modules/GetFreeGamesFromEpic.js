@@ -7,7 +7,7 @@ export function GetEpicFreeGames() {
     const response = await axios.get(
       "https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions?country=UA"
     );
-    //console.log(response.data);
+    console.log(response.data);
     if (response.data.data.Catalog.searchStore != null) {
       const gamesList = response.data.data.Catalog.searchStore.elements;
       text += "🆓Роздачі в EpicGames🆓\n";
@@ -25,7 +25,11 @@ export function GetEpicFreeGames() {
           ].promotions?.promotionalOffers[0]?.promotionalOffers[0].endDate
         );
 
-        if (!isNaN(startDate) && !isNaN(endDate)) {
+          // if(gamesList[i].price.totalPrice.fmtPrice.intermediatePrice == 0){
+          //   // console.log("current:",new Date(currentDate).toLocaleString("uk-UA"), " start", new Date(startDate).toLocaleString("uk-UA"), " end", new Date(endDate).toLocaleString("uk-UA"));
+          //   console.log( new Date(endDate).toLocaleString("uk-UA"));
+          // }
+        if (!isNaN(startDate) && !isNaN(endDate) && gamesList[i].price.totalPrice.fmtPrice.intermediatePrice == 0) {
           text += `🔥Назва: ⭐${gamesList[i].title} ⭐\n`;
           text += `🎮[Посилання на гру](https://store.epicgames.com/en-US/p/${gamesList[i].catalogNs.mappings[0].pageSlug})\n`;
           text += `📙Опис: \n${gamesList[i].description}\n`;
@@ -38,34 +42,34 @@ export function GetEpicFreeGames() {
           text += `\n`;
         }
       }
-      //Mystery
-      for (let i = 0; i < gamesList.length; i++) {
-        const startDate = new Date(
-          gamesList[
-            i
-          ].promotions?.upcomingPromotionalOffers[0]?.promotionalOffers[0].startDate
-        );
-        const endDate = new Date(
-          gamesList[
-            i
-          ].promotions?.upcomingPromotionalOffers[0]?.promotionalOffers[0].endDate
-        );
+      // Mystery
+      // for (let i = 0; i < gamesList.length; i++) {
+      //   const startDate = new Date(
+      //     gamesList[
+      //       i
+      //     ].promotions?.upcomingPromotionalOffers[0]?.promotionalOffers[0].startDate
+      //   );
+      //   const endDate = new Date(
+      //     gamesList[
+      //       i
+      //     ].promotions?.upcomingPromotionalOffers[0]?.promotionalOffers[0].endDate
+      //   );
 
-        if (!isNaN(startDate) && !isNaN(endDate)) {
-          //   console.log(startDate);
-          //   console.log(endDate);
+      //   if (!isNaN(startDate) && !isNaN(endDate)) {
+      //     //   console.log(startDate);
+      //     //   console.log(endDate);
 
-          text += `🔥Назва: 📦${gamesList[i].title}📦\n`;
-          text += `🎮[Посилання на гру](https://store.epicgames.com/en-US/p/${gamesList[i].catalogNs.mappings[0].pageSlug})\n`;
-          text += `⚠️Дата початку роздачі: ${new Date(startDate).toLocaleString(
-            "uk-UA"
-          )}\n`;
-          text += `⚠️Дата закінчення роздачі: ${new Date(
-            endDate
-          ).toLocaleString("uk-UA")}\n`;
-          text += `\n`;
-        }
-      }
+      //     text += `🔥Назва: 📦${gamesList[i].title}📦\n`;
+      //     text += `🎮[Посилання на гру](https://store.epicgames.com/en-US/p/${gamesList[i].catalogNs.mappings[0].pageSlug})\n`;
+      //     text += `⚠️Дата початку роздачі: ${new Date(startDate).toLocaleString(
+      //       "uk-UA"
+      //     )}\n`;
+      //     text += `⚠️Дата закінчення роздачі: ${new Date(
+      //       endDate
+      //     ).toLocaleString("uk-UA")}\n`;
+      //     text += `\n`;
+      //   }
+      // }
       resolve(text);
     } else {
       resolve("Сталася якась помилка!");
@@ -111,34 +115,34 @@ export async function GetEpicFreeGamesShedule(bot) {
       }
     }
     //Mystery
-    for (let i = 0; i < gamesList.length; i++) {
-      const currentDate = new Date();
-      const startDate = new Date(
-        gamesList[
-          i
-        ].promotions?.upcomingPromotionalOffers[0]?.promotionalOffers[0].startDate
-      );
-      const endDate = new Date(
-        gamesList[
-          i
-        ].promotions?.upcomingPromotionalOffers[0]?.promotionalOffers[0].endDate
-      );
+    // for (let i = 0; i < gamesList.length; i++) {
+    //   const currentDate = new Date();
+    //   const startDate = new Date(
+    //     gamesList[
+    //       i
+    //     ].promotions?.promotionalOffers[0]?.promotionalOffers[0].startDate
+    //   );
+    //   const endDate = new Date(
+    //     gamesList[
+    //       i
+    //     ].promotions?.promotionalOffers[0]?.promotionalOffers[0].endDate
+    //   );
 
-      if (!isNaN(startDate) && !isNaN(endDate)) {
-        // console.log(startDate);
-        // console.log(endDate);
+    //   if (!isNaN(startDate) && !isNaN(endDate)) {
+    //     // console.log(startDate);
+    //     // console.log(endDate);
 
-        text += `🔥Назва: 📦${gamesList[i].title}📦\n`;
-        text += `🎮[Посилання на гру](https://store.epicgames.com/en-US/p/${gamesList[i].catalogNs.mappings[0].pageSlug})\n`;
-        text += `⚠️Дата початку роздачі: ${new Date(startDate).toLocaleString(
-          "uk-UA"
-        )}\n`;
-        text += `⚠️Дата закінчення роздачі: ${new Date(endDate).toLocaleString(
-          "uk-UA"
-        )}\n`;
-        text += `\n`;
-      }
-    }
+    //     text += `🔥Назва: 📦${gamesList[i].title}📦\n`;
+    //     text += `🎮[Посилання на гру](https://store.epicgames.com/en-US/p/${gamesList[i].catalogNs.mappings[0].pageSlug})\n`;
+    //     text += `⚠️Дата початку роздачі: ${new Date(startDate).toLocaleString(
+    //       "uk-UA"
+    //     )}\n`;
+    //     text += `⚠️Дата закінчення роздачі: ${new Date(endDate).toLocaleString(
+    //       "uk-UA"
+    //     )}\n`;
+    //     text += `\n`;
+    //   }
+    // }
 
     bot.telegram.sendMessage(chatId, text, { parse_mode: "Markdown" });
   } else {
