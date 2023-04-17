@@ -76,6 +76,17 @@ bot.command("gpt", async(ctx)=>{ctx.reply(await ChatGPT(ctx), {
   parse_mode: "Markdown",
 })});
 
+bot.on('message', (ctx) => {
+  const chatId = ctx.message.chat.id;
+  const message = ctx.message;
+  console.log(message);
+  if (message && message.sticker && message.sticker.set_name === 'HANGSEED_Emoji2') {
+    bot.telegram.deleteMessage(chatId, message.message_id);
+    bot.telegram.sendMessage(chatId, "Повідомлення видалено, бо поточні закони забороняються використання цих стікерів!");
+  }
+});
+
+
 /*Events */
 bot.on("callback_query", (ctx) => {
   const callbackData = ctx.callbackQuery.data;
